@@ -1,0 +1,229 @@
+<style>
+	tbody tr td{
+		vertical-align: middle !important; 
+		font-size: 14px;
+	}
+	tr th{
+		font-size: 16px;
+	}
+	.form-group-width{
+		width: 300px;
+		margin-left: 143px;	
+	}
+	.label-left{
+		margin-left: 143px;	
+	}
+	.tip{
+		display: inline-block;
+		margin-top: 6px;
+		margin-left: 144px;
+		color: #f00;
+	}
+	.glyphicon{
+		top: 10px!important;
+		left: 10px;
+		display: inline-block;
+		margin-left: 10px;
+		cursor: pointer;
+	}
+	.role-group{
+		margin-left: 147px;
+	}
+	.role-group input{
+		margin-left: 35px;
+		margin-right: 5px;
+	}
+</style>
+<div class="wrapper">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="ibox">
+				<div class="ibox-title">
+					<h3>角色管理</h3>
+					<div>
+						<span>{{personInfo.name}}</span>&nbsp;&nbsp;
+						<span>物理与电子信息学院</span>&nbsp;&nbsp;
+						<span>{{personInfo.major}}</span>
+					</div>
+				</div>
+				<div class="ibox-content">
+					<div class="row">
+						<div class="btn-group">
+							<button class="btn btn-white" ng-click="addRole()">添加角色</button>
+							<span class="glyphicon glyphicon-plus" title="批量导入" ng-click="addRoles()" style=""></span>
+						</div>
+					</div>
+					<div class="row">
+						<table class="table table-stripped table-bordered table-hover" datatable="ng" dt-options="dtOptions">
+							<thead>
+								<tr>
+	                                <th>序号</th>
+	                                <th>姓名</th>
+	                                <th>学号</th>
+	                                <th>角色名</th>
+	                                <th>创建时间</th>
+	                                <th>更新时间</th>
+	                                <th>操作</th>
+                            	</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="role in tableDatas">
+									<td>{{$index+1}}</td>
+									<td>{{role.name}}</td>
+									<td>{{role.id}}</td>
+									<td>{{role.userType}}</td>
+									<td>{{role.createdAt}}</td>
+									<td>{{role.updatedAt}}</td>
+									<td style="text-align: center;">
+										<button class="btn btn-info" style="margin: 0 5px;" ng-click="resetRole(role)">重置</button>
+										<button class="btn btn-warning" style="margin: 0 5px;" ng-click="deleteRole(role)">删除</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--修改-->
+<div id="modify" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button class="close" type="button" data-dismiss="modal" aria-label="close"><span aria-hidden="true">&times;</span></button>
+				<h3>编辑角色</h3>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+				  <div class="col-lg-12">
+					<form class="form-horizontal " name="modifyRoleForm" novalidate="novalidate">
+						<div class="form-group">
+							<label class="label-left">姓名</label>
+							<input type="text" class="form-control form-group-width" name="modifyRoleName" ng-model="modifyRoleData.name" required/>
+							<div ng-show="modifyRoleForm.modifyRoleName.$invalid">
+								<span class="tip">不能为空！</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="label-left">学号</label>
+							<input type="text" class="form-control form-group-width" name="modifyRoleNumber" ng-model="modifyRoleData.id" required/>
+							<div ng-show="modifyRoleForm.modifyRoleNumber.$invalid">
+								<span class="tip">不能为空！</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="label-left">角色</label><br />
+							<div class="role-group">
+								<input type="radio" name="modifyRoleType" ng-model="modifyRoleData.userType" value="管理员" required/>管理员
+								<input type="radio" name="modifyRoleType" ng-model="modifyRoleData.userType" value="教师" required/>教师
+								<input type="radio" name="modifyRoleType" ng-model="modifyRoleData.userType" value="学生" required/>学生
+							</div>
+							<div ng-show="modifyRoleForm.modifyRoleType.$invalid">
+								<span class="tip">不能为空！</span>
+							</div>
+						</div>
+				    </form>
+				  </div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-success btn-outline" ng-click="saveModify()">保存</button>
+				<button class="btn btn-white btn-outline" data-dismiss="modal">取消</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!--添加-->
+<div id="addRole" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button class="close" type="button" data-dismiss="modal" aria-label="close"><span aria-hidden="true">&times;</span></button>
+				<h3>添加角色</h3>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+				  <div class="col-lg-12">
+					<form class="form-horizontal " name="addRoleForm" novalidate="novalidate">
+						<div class="form-group">
+							<label class="label-left">姓名</label>
+							<input type="text" class="form-control form-group-width" name="addRoleName" ng-model="addRoleData.name" placeholder="如：张三" required/>
+							<div ng-show="submitted && addRoleForm.addRoleName.$invalid">
+								<span class="tip" ng-show="addRoleForm.addRoleName.$error.required">不能为空！</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="label-left">学号</label>
+							<input type="text" class="form-control form-group-width" name="addRoleNumber" ng-model="addRoleData.id" placeholder="如：1070214024001" required/>
+							<div ng-show="submitted && addRoleForm.addRoleNumber.$invalid">
+								<span class="tip" ng-show="addRoleForm.addRoleNumber.$error.required">不能为空！</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="label-left">角色</label><br />
+							<div class="role-group">
+								<input type="radio" name="addRoleType" ng-model="addRoleData.userType" value="管理员" required/>管理员
+								<input type="radio" name="addRoleType" ng-model="addRoleData.userType" value="教师" required/>教师
+								<input type="radio" name="addRoleType" ng-model="addRoleData.userType" value="学生" required/>学生
+							</div>
+							<div ng-show="submitted && addRoleForm.addRoleType.$invalid">
+								<span class="tip" ng-show="addRoleForm.addRoleType.$error.required">不能为空！</span>
+							</div>
+						</div>
+				    </form>
+				  </div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-success btn-outline" ng-click="addRoleSave()">保存</button>
+				<button class="btn btn-white btn-outline" data-dismiss="modal">取消</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--批量添加角色-->
+<div id="addRoles" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content" style="800px">
+			<div class="modal-header">
+			<button class="close" type="button" data-dismiss="modal" aria-label="close"><span aria-hidden="true">&times;</span></button>
+			<h3>批量添加角色</h3>
+			</div>
+			<div class="modal-body">
+				<h4>导入的文件的格式如下：</h4>
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th>姓名</th>
+							<th>账号</th>
+							<th>角色类型</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>张三</td>
+							<td>1070214024001</td>
+							<td>学生</td>
+						</tr>
+						<tr>
+							<td>李四</td>
+							<td>1070214024002</td>
+							<td>教师</td>
+						</tr>
+					</tbody>
+				</table>
+				<div>
+					<input type="file" id="addFileData"/>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-success btn-outline" ng-click="addFile()">添加</button>
+				<button class="btn btn-white btn-outline" data-dismiss="modal">取消</button>
+			</div>
+		</div>
+	</div>
+</div>

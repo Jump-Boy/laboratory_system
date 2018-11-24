@@ -1,0 +1,328 @@
+<style>
+	tbody tr td{
+		vertical-align: middle !important; 
+		font-size: 14px;
+	}
+	tr th{
+		font-size: 16px;
+	}
+	.form-group-width{
+		width: 300px;
+		margin-left: 143px;	
+	}
+	.label-left{
+		margin-left: 143px;	
+	}
+	.tip{
+		display: inline-block;
+		margin-top: 6px;
+		margin-left: 143px;
+		color: #f00;
+	}
+	.major{
+		margin-left: 150px!important;
+	}
+</style>
+<div class="wrapper">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="ibox">
+				<div class="ibox-title">
+					<h3>课程管理</h3>
+					<div>
+						<span>{{personInfo.name || "-"}}</span>&nbsp;&nbsp;
+						<span>物理与电子信息学院</span>&nbsp;&nbsp;
+						<span>{{personInfo.major || "-"}}</span>
+					</div>
+				</div>
+				<div class="ibox-content">
+					<div class="row">
+						<button class="btn btn-white" style="margin-left: 16px;" ng-click="addCourse()">添加课程</button>	
+					</div>
+					<div>
+						<table class="table table-stripped table-bordered table-hover" datatable="ng" dt-options="dtOptions">
+							<thead>
+								<tr>
+									<th>序号</th>
+									<th>课程名称</th>
+									<th>课程属性</th>
+									<th>学分</th>
+									<th>修读学期</th>
+									<th>上课周次</th>
+									<th>上课时间</th>
+									<th>上课地点</th>
+									<th>授课老师</th>
+									<th>应选人数</th>
+									<th>已选人数</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="item in tableDatas">
+									<td>{{$index+1}}</td>
+									<td>{{item.courseName}}</td>
+									<td>{{item.attribute}}</td>
+									<td>{{item.credit}}</td>
+									<td>{{item.studySemester  || '-'}}</td>
+									<td>{{item.classWeeks}}</td>
+									<td>{{item.classTime}}</td>
+									<td>{{item.location}}</td>
+									<td>{{item.teaName}}</td>
+									<td>{{item.limitNum}}</td>
+									<td>{{item.selectedNum}}<span ng-show="{{item.selectedNum != 0}}" class="glyphicon glyphicon-list-alt" title="查看已选详情" style="margin-left: 10px;cursor: pointer;" ng-click="readDetail(item)"></span></td>
+									<td style="text-align: center;">
+										<!--<button class="btn btn-info btn-outline" style="margin: 0 5px;" data-toggle="modal" data-target="#refer">查看</button>-->
+										<button class="btn btn-warning btn-outline" style="margin: 0 5px;" ng-click="modify(item)">修改</button>
+										<button class="btn btn-danger btn-outline" ng-click="deleteItem(item)">删除</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--查看-->
+<div id="readDetail" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content" style="800px">
+			<div class="modal-header">
+				<button class="close" type="button" data-dismiss="modal" aria-label="close"><span aria-hidden="true">&times;</span></button>
+				<h3>已选人数详情</h3>
+			</div>
+			<div class="modal-body">
+						<table class="table table-stripped table-bordered table-hover" datatable="ng" dt-options="dtOptions">
+							<thead>
+								<tr style="word-break:keep-all ;">
+									<th>序号</th>
+									<th>姓名</th>
+									<th>学号</th>
+									<th>课程名称</th>
+									<th>上课时间</th>
+									<th>上课地点</th>
+									<th>授课老师</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="item in detailTableDatas">
+									<td>{{$index+1}}</td>
+									<td>{{item.stuName}}</td>
+									<td>{{item.stuId}}</td>
+									<td>{{item.courseName}}</td>
+									<td>{{item.classTime}}</td>
+									<td>{{item.location}}</td>
+									<td>{{item.teaName}}</td>
+									<td style="text-align: center;">
+										<button class="btn btn-danger btn-outline" ng-click="deleteSomePerson(item)">删除</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+			</div>
+		</div>
+	</div>
+</div>
+<!--修改-->
+<div id="modifyCourse" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button class="close" type="button" data-dismiss="modal" aria-label="close"><span aria-hidden="true">&times;</span></button>
+				<h3>修改课程</h3>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+				  <div class="col-lg-12">
+					<form class="form-horizontal " name="modifySubjectForm" novalidate="novalidate">
+						<div class="form-group">
+							<label class="label-left">课程名称</label>
+							<input type="text" name="courseName" ng-model="modifySubject.courseName" class="form-control form-group-width" required/>
+							<div ng-show="submitted && modifySubjectForm.courseName.$invalid">
+								<span class="tip" ng-show="modifySubjectForm.courseName.$error.required">不能为空！</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="label-left">课程属性</label>
+							<input type="text" name="courseAttribute" ng-model="modifySubject.courseAttribute" class="form-control form-group-width" required/>
+							<div ng-show="submitted && modifySubjectForm.courseAttribute.$invalid">
+								<span class="tip" ng-show="modifySubjectForm.courseAttribute.$error.required">不能为空！</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="label-left">学分</label>
+							<input type="text" name="courseCredit" ng-model="modifySubject.courseCredit" class="form-control form-group-width" required/>
+							<div ng-show="submitted && modifySubjectForm.courseCredit.$invalid">
+								<span class="tip" ng-show="modifySubjectForm.courseCredit.$error.required">不能为空！</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="label-left">修读学期</label>
+							<select name="majorTerm" ng-model="modifySubject.majorTerm" class="form-control form-group-width" required>
+								<option value="">请选择</option>
+								<option value="大一上学期">大一上学期</option>
+								<option value="大一下学期">大一下学期</option>
+								<option value="大二上学期">大二上学期</option>
+								<option value="大二下学期">大二下学期</option>
+								<option value="大三上学期">大三上学期</option>
+								<option value="大三下学期">大三下学期</option>
+								<option value="大四上学期">大四上学期</option>
+								<option value="大四下学期">大四下学期</option>
+							</select>
+							<div ng-show="submitted && modifySubjectForm.majorTerm.$invalid">
+								<span class="tip" ng-show="modifySubjectForm.majorTerm.$error.required">不能为空！</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="label-left">上课周次</label>
+							<input type="text" name="classWeeks" ng-model="modifySubject.classWeeks" class="form-control form-group-width" placeholder="输入格式 如：1~18" required/>
+							<div ng-show="submitted && modifySubjectForm.classWeeks.$invalid">
+								<span class="tip" ng-show="modifySubjectForm.classWeeks.$error.required">不能为空！</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="label-left">上课时间</label>
+							<input type="text" name="courseTime" ng-model="modifySubject.courseTime" class="form-control form-group-width" placeholder="输入格式：星期一  8：00~10：00" required/>
+							<div ng-show="submitted && modifySubjectForm.courseTime.$invalid">
+								<span class="tip" ng-show="modifySubjectForm.courseTime.$error.required">不能为空！</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="label-left">上课地点</label>
+							<input type="text" name="classroom" ng-model="modifySubject.classroom" class="form-control form-group-width" ng-pattern="/^\d{4}$/" placeholder="只能输入4位数字" required/>
+							<div ng-show="submitted && modifySubjectForm.classroom.$invalid">
+								<span class="tip" ng-show="modifySubjectForm.classroom.$error.required">不能为空！</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="label-left">授课老师</label>
+							<input type="text" name="courseTeacher" ng-model="modifySubject.courseTeacher" class="form-control form-group-width" required readonly/>
+						
+						</div>
+						<div class="form-group">
+							<label class="label-left">应选人数</label>
+							<input type="text" name="coursePopulation" ng-model="modifySubject.coursePopulation" class="form-control form-group-width" required/>
+							<div ng-show="submitted && modifySubjectForm.coursePopulation.$invalid">
+								<span class="tip" ng-show="modifySubjectForm.coursePopulation.$error.required">不能为空！</span>
+							</div>
+						</div>
+						<div class="form-group major">
+							<input type="radio" name="major" value="电子信息工程" ng-model="modifySubject.majorScope"/>电信&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="radio" name="major" value="通信工程" ng-model="modifySubject.majorScope"/>通信&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="radio" name="major" value="物理学" ng-model="modifySubject.majorScope"/>物理&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="radio" name="major" value="自动化" ng-model="modifySubject.majorScope"/>自动化
+						</div>
+				    </form>
+				  </div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-success btn-outline" ng-click="saveModify()">保存</button>
+				<button class="btn btn-white btn-outline" ng-click="cancelSave()">取消</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--添加课程-->
+<div id="addCourse" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button class="close" type="button" data-dismiss="modal" aria-label="close"><span aria-hidden="true">&times;</span></button>
+				<h3>添加课程</h3>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+				  <div class="col-lg-12">
+					<form class="form-horizontal " name="addSubjectForm">
+						<div class="form-group">
+							<label class="label-left">课程名称</label>
+							<input type="text" name="courseName" ng-model="addSubject.courseName" class="form-control form-group-width" required/>
+							<div ng-show="submitted && addSubjectForm.courseName.$invalid">
+								<span class="tip" ng-show="addSubjectForm.courseName.$error.required">不能为空！</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="label-left">课程属性</label>
+							<input type="text" name="courseAttribute" ng-model="addSubject.courseAttribute" class="form-control form-group-width" required/>
+							<div ng-show="submitted && addSubjectForm.courseAttribute.$invalid">
+								<span class="tip" ng-show="addSubjectForm.courseAttribute.$error.required">不能为空！</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="label-left">学分</label>
+							<input type="text" name="courseCredit" ng-model="addSubject.courseCredit" class="form-control form-group-width" required/>
+							<div ng-show="submitted && addSubjectForm.courseCredit.$invalid">
+								<span class="tip" ng-show="addSubjectForm.courseCredit.$error.required">不能为空！</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="label-left">修读学期</label>
+							<select name="majorTerm" ng-model="addSubject.majorTerm" class="form-control form-group-width" required>
+								<option value="">请选择</option>
+								<option value="大一上学期">大一上学期</option>
+								<option value="大一下学期">大一下学期</option>
+								<option value="大二上学期">大二上学期</option>
+								<option value="大二下学期">大二下学期</option>
+								<option value="大三上学期">大三上学期</option>
+								<option value="大三下学期">大三下学期</option>
+								<option value="大四上学期">大四上学期</option>
+								<option value="大四下学期">大四下学期</option>
+							</select>
+							<div ng-show="submitted && addSubjectForm.majorTerm.$invalid">
+								<span class="tip" ng-show="addSubjectForm.majorTerm.$error.required">不能为空！</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="label-left">上课周次</label>
+							<input type="text" name="classWeeks" ng-model="addSubject.classWeeks" class="form-control form-group-width" placeholder="输入格式 如：1~18" required/>
+							<div ng-show="submitted && addSubjectForm.classWeeks.$invalid">
+								<span class="tip" ng-show="addSubjectForm.classWeeks.$error.required">不能为空！</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="label-left">上课时间</label>
+							<input type="text" name="courseTime" ng-model="addSubject.courseTime" class="form-control form-group-width" placeholder="输入格式：星期一  8：00~10：00" required/>
+							<div ng-show="submitted && addSubjectForm.courseTime.$invalid">
+								<span class="tip" ng-show="addSubjectForm.courseTime.$error.required">不能为空！</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="label-left">上课地点</label>
+							<input type="text" name="classroom" ng-model="addSubject.classroom" class="form-control form-group-width" placeholder="只能输入4位数字" ng-pattern="/^\d{4}$/" required/>
+							<div ng-show="submitted && addSubjectForm.classroom.$invalid">
+								<span class="tip" ng-show="addSubjectForm.classroom.$error.required">不能为空！</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="label-left">授课老师</label>
+							<input type="text" name="courseTeacher" ng-model="addSubject.courseTeacher" class="form-control form-group-width" required readonly/>
+							
+						</div>
+						<div class="form-group">
+							<label class="label-left">应选人数</label>
+							<input type="text" name="coursePopulation" ng-model="addSubject.coursePopulation" class="form-control form-group-width" required/>
+							<div ng-show="submitted && addSubjectForm.coursePopulation.$invalid">
+								<span class="tip" ng-show="addSubjectForm.coursePopulation.$error.required">不能为空！</span>
+							</div>
+						</div>
+						<div class="form-group major">
+							<input type="radio" name="major" value="电子信息工程" ng-model="addSubject.majorScope"/>电信&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="radio" name="major" value="通信工程" ng-model="addSubject.majorScope"/>通信&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="radio" name="major" value="物理学" ng-model="addSubject.majorScope"/>物理&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="radio" name="major" value="自动化" ng-model="addSubject.majorScope"/>自动化
+						</div>
+				    </form>
+				  </div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-success btn-outline" ng-click="saveAdd()">添加</button>
+				<button class="btn btn-white btn-outline" ng-click="cancelAdd()">取消</button>
+			</div>
+		</div>
+	</div>
+</div>

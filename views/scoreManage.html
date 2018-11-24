@@ -1,0 +1,80 @@
+<style>
+	tbody tr td{
+		vertical-align: middle !important; 
+		font-size: 14px;
+	}
+	tr th{
+		font-size: 16px;
+	}
+</style>
+<div class="wrapper">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="ibox">
+				<div class="ibox-title">
+					<h3>成绩管理</h3>
+					<div>
+						<span>{{personInfo.name}}</span>&nbsp;&nbsp;
+						<span>物理与电子信息学院</span>&nbsp;&nbsp;
+						<span>{{personInfo.major}}</span>
+					</div>
+				</div>
+				<div class="ibox-content">
+					<div class="row">
+						<div class="btn-group"  role="group">
+							<button type="button" class="btn btn-default" ng-click="classFilter('全部')">全部</button>
+							<button type="button" class="btn btn-default" ng-click="classFilter('大一')">一年级</button>
+							<button type="button" class="btn btn-default" ng-click="classFilter('大二')">二年级</button>
+							<button type="button" class="btn btn-default" ng-click="classFilter('大三')">三年级</button>
+							<button type="button" class="btn btn-default" ng-click="classFilter('大四')">四年级</button>
+							
+						</div>
+					</div>
+					<div class="row">
+						<table class="table table-stripped table-bordered table-hover" datatable="ng" dt-options="dtOptions">
+							<thead>
+								<tr>
+									<th>序号</th>
+									<th>姓名</th>
+									<th>学号</th>
+									<th>年级</th>
+									<th>班别</th>
+									<th>课程名称</th>
+									<th>参考成绩（分）</th>
+									<th>上课情况</th>
+									<th>最终成绩（分）</th>
+									<th>授课老师</th>
+									<th>输入最终成绩</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="item in tableDatas">
+									<td>{{$index+1}}</td>
+									<td>{{item.stuName}}</td>
+									<td>{{item.stuId}}</td>
+									<td>{{item.grade}}</td>
+									<td>{{item.className}}</td>
+									<td>{{item.courseName}}</td>
+									<td>{{item.referScore}}</td>
+									<td>
+										<span>请假：{{item.vacateNum}}次</span><br/>
+										<span>旷课：{{item.truancyNum}}次</span><br/>
+									</td>
+									<td>{{item.totalScore}}</td>
+									<td>{{item.teaName}}</td>
+									<td style="text-align: center;">
+										<div ng-show="item.markShow" style="display: inline-block;">
+											<input type="text" ng-model="item.totalScore" style="width: 50px;"/>
+											<sapn>分</sapn>
+										</div>
+										<button class="btn btn-info" style="margin: 0 5px;" ng-click="markScore(item)">打分</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

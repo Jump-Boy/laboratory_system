@@ -1,0 +1,119 @@
+<style>
+	tbody tr td{
+		vertical-align: middle !important; 
+		font-size: 14px;
+	}
+	tr th{
+		font-size: 16px;
+	}
+</style>
+<div class="wrapper">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="ibox">
+				<div class="ibox-title">
+					<h3>查看成绩</h3>
+					<div>
+						<span>{{personInfo.name}}</span>&nbsp;&nbsp;
+						<span>物理与电子信息学院</span>&nbsp;&nbsp;
+						<span>{{personInfo.major}}</span>
+					</div>
+				</div>
+				<div class="ibox-content">
+					<div class="row">
+						<div class="col-lg-12">
+							<form name="queryForm" novalidate>
+								<div class="form-group col-lg-2">
+									<select ng-model="queryParam" class="form-control">
+										<option value="">请选择</option>
+										<option value="大一上">大一上学期</option>
+										<option value="大一下">大一下学期</option>
+										<option value="大二上">大二上学期</option>
+										<option value="大二下">大二下学期</option>
+										<option value="大三上">大三上学期</option>
+										<option value="大三下">大三下学期</option>
+										<option value="大四上">大四上学期</option>
+										<option value="大四下">大四下学期</option>
+									</select>
+								</div>
+								<div class="col-lg-2">
+									<button class="btn btn-primary" ng-click="queryData()">查询</button>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div>
+						<table class="table table-stripped table-bordered table-hover" datatable="ng" dt-options="dtOptions">
+							<thead>
+								<tr>
+									<th>序号</th>
+									<th>课程名称</th>
+									<th>课程属性</th>
+									<th>成绩</th>
+									<th>是否合格</th>
+									<th>获得学分</th>
+									<th>获得绩点</th>
+									<th>是否重修</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="item in tableDatas">
+									<td>{{$index+1}}</td>
+									<td>{{item.courseName}}</td>
+									<td>{{item.attribute}}</td>
+									<td>{{item.totalScore}}</td>
+									<td>{{item.pass ? "合格" : "不及格"}}</td>
+									<td>{{item.getCredit}}</td>
+									<td>{{item.GPA}}</td>
+									<td>{{item.isRebuild ? "是" : "否"}}</td>
+									<td style="text-align: center;">
+										<button class="btn btn-info" style="margin: 0 5px;"ng-click="viewDetail(item)">查看明细</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--查看明细-->
+<div id="refer" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button class="close" type="button" data-dismiss="modal" aria-label="close"><span aria-hidden="true">&times;</span></button>
+				<h3>查看明细</h3>
+			</div>
+			<div class="modal-body">
+				<table class="table table-stripped table-bordered table-hover" >
+					<thead>
+						<tr>
+							<th>序号</th>
+							<th>课程名称</th>
+							<th>上课时间</th>
+							<th>上课地点</th>
+							<th>上课周次</th>
+							<th>授课老师</th>
+							<th>课堂得分</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="item in detailTable">
+							<td>{{$index+1}}</td>
+							<td>{{item.courseName}}</td>
+							<td>{{item.classTime}}</td>
+							<td>{{item.location}}</td>
+							<td>{{item.currentWeeks}}</td>
+							<td>{{item.teaName}}</td>
+							<td>{{item.usualScore}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			
+		</div>
+	</div>
+</div>

@@ -1,0 +1,175 @@
+
+.clearPadding{
+    padding:0;
+}
+.userTopUp>thead>tr>th>.row>.col ul,.userTopUp>tbody>tr>td>.row>.col ul{
+    margin: 10px 0;
+}
+.userTopUp>thead>tr>th>.row>.col li,.userTopUp>tbody>tr>td>.row>.col li{
+    display: inline-block;
+    width:100px;
+    height:80px;
+    border:2px solid #ddd;
+    border-radius: 6px;
+    text-align: center;
+    padding: 5px 0;
+}
+.userTopUp>tbody>tr>td>.row>.col li.wechatPay{
+    width:120px;
+    height:40px;
+}
+.userTopUp .row>.col li.active{
+    border:2px solid #1ab394;
+    color:#1ab394;
+    background: #fff;
+    opacity: .8;
+}
+.userTopUp .row>.col li{
+    margin-right:5px;
+    margin-bottom: 5px;
+}
+.ibox-content{
+    padding: 10px 20px 5px 20px;
+}
+.ibox-footer>.row>.col{
+    border:1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px 8px;
+}
+.ibox-footer>.explain{
+    margin-top:10px;
+}
+
+
+.wrapper>.row>.col{
+    /*padding: 0;*/
+}
+.wrapper>.row>.col .input-group>span{
+    padding: 9px 20px;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+}
+.wrapper>.row>.col input{
+    height:50px;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    padding: 5px 20px;
+}
+.wrapper>.row>.col select{
+    height:50px;
+    border-radius: 6px;
+    width: 100%;
+
+}
+option{
+    width:100px;
+}
+
+
+.cont_information>li:after{
+    content: " ";
+    display: table;
+    clear: both;
+    margin-bottom: 10px;
+}
+.cont_information>li>.form-group input{
+    height:40px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+}
+.cont_information>li>.form-group>.col-xs-4{
+    padding: 0;
+    text-align: right;
+    padding-right: 10px;
+}
+
+/*check_modal style S*/
+.check_modal{
+    background: #1ab394;
+}
+.check_modal>b{
+    line-height: 30px; color: #fff;
+}
+.check_modal>button{
+    float: right;
+}
+.check_modal-body{
+    font-size: 16px;
+}
+
+.modal-border{
+    border: 1px solid #e7eaec;
+}
+
+.delete_modal-header{
+    background-color: orange;
+    color: #fff;
+}
+
+.delete_modal-body>button{
+    margin-right: 5%;
+}
+
+.modal-body .row > .col-xs-4{
+    font-weight: bold;
+}
+
+.modal-body .row > .col-xs-8 > input{
+    width: 100%;
+    text-align: center;
+}
+
+.modal-body .row > .col-xs-8 > textarea{
+    width: 100%;
+    text-indent: 26px;
+}
+
+.modal-body .row:not(:last-child){
+    margin-bottom: 20px;
+}
+
+.modal-body .row input[type='checkbox']{
+    outline: none;
+    width:14px;
+}
+
+.alter{
+    display: block;
+    margin: 0 auto;
+}
+
+.cursor{
+    cursor: pointer;
+}
+.agentTab{
+    margin: 20px 0;
+}
+
+.nav-tabs.agentTab{
+    border-bottom: 0;
+}
+
+.nav-tabs.agentTab > li.active > a{
+    color: #fff;
+    background: #1ab394;
+}
+
+#mask{
+    z-index: 1000;
+    width:100%;
+    height:100%;
+    background: rgba(0,0,0,.3);
+    position: absolute;
+    left:15px;
+    top:0;
+    padding-top: 10%;
+}
+
+#mask > .check_modal{
+    padding:10px 20px;
+}
+
+#mask > .check_modal, #mask > .ibox-content{
+    width:90%;
+    margin: 0 auto;
+}

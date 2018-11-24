@@ -1,0 +1,97 @@
+<!--登录界面主要样式-->
+<style>
+	.container{
+		width: 100%;
+		height: 100%;
+		background-color: #000;
+		position: relative;
+	}
+	.form-zone{
+		position: absolute;
+		top: 30%;
+		left: 38%;
+		width: 500px;
+		height: 320px;
+		border-radius: 10px;
+		background-color: #aaa;
+	}
+	.form-item{
+		box-sizing: content-box;
+		padding: 22px 123px;
+	}
+	.user-type{
+		padding-left: 178px;
+	}
+	.user-type input{
+		margin-right: 7px;
+	}
+	.form-input{
+		width: 200px;
+		height: 25px;
+		border-radius: 5px;
+	}
+	.form-input:focus{
+		width: 200px;
+		height: 25px;
+		border-radius: 5px;
+		border: 1px solid #0E9AEF;
+	}
+	.tip{
+		display: inline-block;
+		margin-top: 6px;
+		margin-left: 54px;
+		color: #f00;
+	}
+</style>
+
+<!--登录界面，#particle-js是页面背景粒子插件-->
+<div id="particles-js" class="container">
+		<!--登录表单-->
+		<form class="form-horizontal form-zone" name="loginForm" novalidate>
+			<!--用户名输入-->
+			<div class="form-item">
+				<label>用户名：</label>
+				<input type="text" class="form-input" name="username" ng-model="userInfomation.username" autocomplete="off" required>
+				<div ng-show="submitted && loginForm.username.$invalid">
+					<span class="tip" >用户名不能为空</span>
+				</div>
+				<div ng-show="notFound">
+					<span class="tip" >用户名不存在</span>
+				</div>
+			</div>
+			<!--/用户名输入-->
+			<!--密码输入-->
+			<div class="form-item">
+				<label>密&nbsp;&nbsp;&nbsp;&nbsp;码：</label>
+				<input type="password" class="form-input" name="password" ng-model="userInfomation.password" autocomplete="off" required>
+				<div ng-show="submitted && loginForm.password.$invalid">
+					<span class="tip">密码不能为空</span>
+				</div>
+				<div ng-show="errorPassword">
+					<span class="tip">密码错误</span>
+				</div>
+			</div>
+			<!--/密码输入-->
+			<!--角色类型-->
+			<div class="form-item user-type">
+				<label>管理员</label>
+				<input type="radio" name="userType" ng-model="userInfomation.userType" value="manager" required/>
+				<label>教师</label>
+				<input type="radio" name="userType" ng-model="userInfomation.userType" value="teacher" required/>
+				<label>学生</label>
+				<input type="radio" name="userType" ng-model="userInfomation.userType" value="student" required/>
+				<div ng-show="submitted && loginForm.userType.$invalid">
+					<span class="tip" style="margin-left: 0;">请选择用户身份</span>
+				</div>
+			</div>
+			<!--/角色类型-->
+			<!--表单按钮-->
+			<div class="form-item user-type">
+				<button class="btn btn-success" style="margin-left: 33px;" ng-click="login()">登陆</button>
+				<button class="btn btn-white" style="margin-left: 20px;" ng-click="reset()">重置</button>
+			</div>
+			<!--/表单按钮-->
+		</form>
+		<!--/登录表单-->
+</div>
+<!--/登录界面，#particle-js是页面背景粒子插件-->

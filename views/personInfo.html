@@ -1,0 +1,142 @@
+<style>
+	tbody tr td{
+		vertical-align: middle !important; 
+		font-size: 14px;
+	}
+	tr th{
+		font-size: 16px;
+	}
+	.form-group{
+		margin-bottom: 27px;
+	}
+	
+	#writeForm input, select{
+		width: 400px; 
+	}
+	
+	#readForm input{
+		width: 400px; 
+		border: none;
+	}
+	img{
+		border: 1px solid #000000;
+	}
+</style>
+<div class="wrapper" style="height: 100%;">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="ibox">
+				<div class="ibox-title">
+					<h3>个人信息 <sapn class="glyphicon glyphicon-pencil" title="编辑信息" style="cursor: pointer;" ng-click="toggle()"></sapn></h3>
+					<div>
+						<span>{{personInfo.name}}</span>&nbsp;&nbsp;
+						<span>物理与电子信息学院</span>&nbsp;&nbsp;
+						<span>{{personInfo.major}}</span>
+					</div>
+				</div>
+				<!--展示个人信息区域-->
+				<div class="ibox-content" ng-show="!toggleSign">
+					<div class="row">
+						<div class="col-lg-4">
+							<img src="{{readInfo.picURL}}" alt="无法查看" style="width: 600px;height: 490px;"/>
+						</div>
+						<div class="col-lg-7 col-lg-offset-1">
+							<form id="readForm" name="readInfoForm" class="form-horizontal" novalidate="novalidate" style="font-size: 18px;margin-top: 30px;" >
+								<div class="form-group" >
+									<label>姓名：</label>
+									<input type="text" ng-model="readInfo.name" readonly/>
+								</div>
+								<div class="form-group">
+									<label>性别：</label>
+									<input type="text" ng-model="readInfo.sex" readonly/>
+								</div>
+								<div class="form-group" ng-show="{{personInfo.userType === 'student'}}">
+									<label>学号：</label>
+									<input type="text" ng-model="readInfo.studentID" readonly/>
+								</div>
+								<div class="form-group" ng-show="{{personInfo.userType === 'student'}}">
+									<label>班级：</label>
+									<input type="text" ng-model="readInfo.class" readonly/>
+								</div>
+								<div class="form-group" ng-show="{{personInfo.userType === 'student'}}">
+									<label>专业：</label>
+									<input type="text" ng-model="readInfo.major" readonly/>
+								</div>
+								<div class="form-group" ng-show="{{personInfo.userType === 'student'}}">
+									<label>学历：</label>
+									<input type="text" ng-model="readInfo.educationLevel" readonly/>
+								</div>
+								<div class="form-group">
+									<label>籍贯：</label>
+									<input type="text" ng-model="readInfo.province" readonly/>
+								</div>
+								<div class="form-group">
+									<label>电话：</label>
+									<input type="text" ng-model="readInfo.tele" readonly/>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<!--/展示个人信息区域-->
+				<!--编辑个人信息区域-->
+				<div class="ibox-content" ng-show="toggleSign">
+					<div class="row">
+						<div class="col-lg-4">
+							<img id="previewPic" src="" alt="请上传图片" style="width: 600px;height: 490px;"/>
+							<input id="uploadPic" type="file" accept="image/*" style="margin-top: 10px;"/>
+						</div>
+						<div class="col-lg-7 col-lg-offset-1">
+							<form id="writeForm" name="writeInfoForm" class="form-horizontal" novalidate="novalidate" style="font-size: 18px;margin-top: 30px;" >
+								<div class="form-group">
+									<label>姓名：</label>
+									<input type="text" ng-model="writeInfo.name"/>
+								</div>
+								<div class="form-group">
+									<label>性别：</label>
+									<input type="text" ng-model="writeInfo.sex" />
+								</div>
+								<div class="form-group" ng-show="{{personInfo.userType === 'student'}}">
+									<label>学号：</label>
+									<input type="text" ng-model="writeInfo.studentID" readonly/>
+								</div>
+								<div class="form-group" ng-show="{{personInfo.userType === 'student'}}">
+									<label>班级：</label>
+									<input type="text" ng-model="writeInfo.class" />
+								</div>
+								<div class="form-group" ng-show="{{personInfo.userType === 'student'}}">
+									<label>专业：</label>
+									<input type="text" ng-model="writeInfo.major" />
+								</div>
+								<div class="form-group" ng-show="{{personInfo.userType === 'student'}}">
+									<label>学历：</label>
+									<select ng-model="writeInfo.educationLevel">
+									    <option value="">请选择</option>
+										<option value="博士">博士</option>
+										<option value="硕士">硕士</option>
+										<option value="本科">本科</option>
+										<option value="大专">大专</option>
+										<option value="高中">高中</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<label>籍贯：</label>
+									<input type="text" ng-model="writeInfo.province" />
+								</div>
+								<div class="form-group">
+									<label>电话：</label>
+									<input type="text" ng-model="writeInfo.tele" />
+								</div>
+								<div class="form-group">
+									<button class="btn btn-success" style="margin-left: 178px;" ng-click="save()">保存</button>
+									<button class="btn btn-default" style="margin-left: 20px;" ng-click="cancel()">取消</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<!--/编辑个人信息区域-->
+			</div>
+		</div>
+	</div>
+</div>

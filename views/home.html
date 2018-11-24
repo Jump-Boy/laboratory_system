@@ -1,0 +1,205 @@
+<style>
+	#addNews{
+		position: absolute;
+		top: 21px;
+		right: 30px;
+	}
+	.mainNews{
+		background-color: #fff;
+		box-sizing: border-box;
+		margin-bottom: 20px;
+		width: 100%;
+		height: 800px;
+		border: 2px solid #C4C4C4;
+		overflow-y: auto;
+	}
+	.tips-list{
+		list-style: none;
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+	.tips-list li{
+		position: relative;
+		background-color: #fff;
+	    box-sizing: border-box;
+	    padding: 10px;
+	    margin-top: 5px;
+	    border: 1px solid #E0E0E0;
+	    border-radius: 3px;
+	    max-height: 100px;
+	    overflow-y: auto;
+	}
+	.tips-list li:hover{
+		background-color: #E0E0E0;
+	}
+	.time{
+		position: absolute;
+		right: 50px;
+		top: 13px;
+		cursor: pointer;
+	}
+	.tip-content{
+		width: 800px;
+	    margin: 50px auto;
+	    max-height: 800px;
+	    font-size: 11px;
+		font-family: 'Open Sans', sans-serif;
+	    padding: 10px;
+	    position:relative;
+	    background: -webkit-gradient(linear, 0% 20%, 0% 92%, from(#f3f3f3), to(#fff), color-stop(.1,#f3f3f3));
+	    border-top: 1px solid #ccc;
+	    border-right: 1px solid #ccc;
+	    -webkit-border-bottom-right-radius: 60px 60px;
+	    -webkit-box-shadow: -1px 2px 2px rgba(0, 0, 0, 0.2);
+	}
+	.tip-content:before{
+	    content:'';    
+	    width: 25px;
+	    height: 20px;
+	    position: absolute;
+	    bottom:0;
+	    right:0;
+	    -webkit-border-bottom-right-radius: 30px;
+	    -webkit-box-shadow: -2px -2px 5px rgba(0, 0, 0, 0.3);
+	    -webkit-transform:
+	    rotate(-20deg)
+	    skew(-40deg,-3deg)
+	    translate(-13px,-13px);
+	}
+	.tip-content h1{
+		text-align: center;
+		font-size: 20px;
+	    font-weight: bold;
+	    margin-top: 5px; 
+	    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+	}
+	.tip-content article{
+		padding: 10px 20px;
+		line-height: 20px;
+		text-indent: 20px;
+		letter-spacing: 2px;
+		font-size: 16px;
+		margin-top: 15px;
+        text-align: justify;
+	}
+	.tip-content a{
+		display: inline-block;
+		margin-left: 90%;
+	    font-size: 16px;
+	    margin-top: 27px;
+	    
+	}
+	.tip-content div{
+		margin-top: 50px;
+	    padding: 10px;
+	}
+	.tip-content div span{
+		display: inline-block;
+		font-size: 16px;
+		margin: 15px 20px;
+	}
+	.tip{
+		display: inline-block;
+		margin-top: 6px;
+		color: #f00;
+	}
+	.closed{
+		font-size: 17px;
+	}
+</style>
+<!--主视图-->
+<div class="wrapper">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="ibox">
+				<!--主页头部-->
+				<div class="ibox-title">
+					<h3>首页</h3>
+					<div style="display: inline-block;">
+						<span>{{personInfo.name}}</span>&nbsp;&nbsp;
+						<span>物理与电子信息学院</span>&nbsp;&nbsp;
+						<span>{{personInfo.major}}</span>
+					</div>
+					<div >
+						<button ng-show="{{addAuthority}}" class="btn btn-info" id="addNews" ng-click="addTip()">添加消息</button>
+					</div>
+				</div>
+				<!--/主页头部-->
+				<!--主页信息列表展示-->
+				<div class="ibox-content" ng-show="toggle">
+					<div class="mainNews">
+						<ul class="tips-list">
+							<li ng-repeat="tip in tipsData">
+								<span class="fa fa-bullhorn" style="margin-right: 10px;"></span>
+								<a class="tipTitle" ng-click="readDetail(tip)">{{tip.title}}</a>
+								<a ng-show="tip.isHaveAttachment" class="glyphicon glyphicon-arrow-down" ng-click="downloadFile($event,tip)" style="margin-left: 25px; margin-right: 30px;" ></a>
+								<span class="time">{{tip.createdAt}}</span>
+								<button ng-show="{{addAuthority}}" class="close closed" type="button" aria-label="close" ng-click="deleteTip(tip)"><span aria-hidden="true">&times;</span></button>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<!--/主页信息列表展示-->
+				<!--主页信息详细内容展示-->
+				<div class="ibox-content" ng-show="!toggle">
+					<div class="mainNews">
+						<button class="btn btn-info" ng-click="readDetail(null)" style="margin: 10px 10px;">返回</button>
+						<div class="tip-content">
+							
+							<h1>{{tipObj.title}}</h1>
+							<article>{{tipObj.abstract}}</article>
+							<a ng-show="tipObj.isHaveAttachment" ng-click="downloadFile($event)">附件下载</a>
+							<div>
+								<span>{{tipObj.name}}</span><br />
+								<span>{{tipObj.createdAt}}</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--/主页信息详细内容展示-->
+			</div>
+		</div>
+	</div>
+</div>
+<!--/主视图-->
+<!--添加消息-->
+<div id="addNewsModal" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<!--添加消息头部-->
+			<div class="modal-header">
+				<button class="close" type="button" data-dismiss="modal" aria-label="close"><span aria-hidden="true">&times;</span></button>
+				<h3>添加消息</h3>
+			</div>
+			<!--/添加消息头部-->
+			<!--添加消息主体-->
+			<div class="modal-body">
+				<form name="addTipForm">
+					<div class="form-group">
+						<label >标题</label>
+						<input type="text" class="form-control" name="tipTitle" ng-model="addTipData.title" required/>
+						<div ng-show="submitted && addTipForm.tipTitle.$invalid">
+							<span class="tip" ng-show="addTipForm.tipTitle.$error.required">标题不能为空!</span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label>摘要</label>
+						<textarea class="form-control" cols="30" rows="10" ng-model="addTipData.abstract"></textarea>
+					</div>
+					<div class="form-group">
+						<input id="tipFile" type="file" accept=".xlsx,.xls,.doc,.docx,.csv,.pdf,.jpg,.jpeg,.png"/>
+						<span style="display: inline-block;margin-top: 20px;">上传格式(xlsx;xls;doc;docx;csv;pdf;jpg;jpeg;png)</span>
+					</div>
+				</form>
+			</div>
+			<!--/添加消息主体-->
+			<!--添加操作按钮-->
+			<div class="modal-footer">
+				<button class="btn btn-success" ng-click="saveAddTip()">添加</button>
+				<button class="btn btn-white" data-dismiss="modal">返回</button>
+			</div>
+			<!--/添加操作按钮-->
+		</div>
+	</div>
+</div>
+<!--/添加消息-->

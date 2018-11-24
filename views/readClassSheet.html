@@ -1,0 +1,55 @@
+<style>
+	tbody tr td{
+		vertical-align: middle !important; 
+		font-size: 14px;
+	}
+	tr th{
+		font-size: 16px;
+	}
+</style>
+<div class="wrapper">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="ibox">
+				<div class="ibox-title">
+					<h3>查看课表</h3>
+					<div>
+						<span>{{personInfo.name}}</span>&nbsp;&nbsp;
+						<span>物理与电子信息学院</span>&nbsp;&nbsp;
+						<span>{{personInfo.major}}</span>
+					</div>
+				</div>
+				<div class="ibox-content">
+					<div>
+						<table class="table table-stripped table-bordered table-hover" datatable="ng" dt-options="dtOptions">
+							<thead>
+								<tr>
+									<th>序号</th>
+									<th>课程</th>
+									<th>类型</th>
+									<th>学分</th>
+									<th>上课周段</th>
+									<th>上课时间</th>
+									<th>上课地点</th>
+									<th>上课老师</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="item in tableDatas">
+									<td>{{$index+1}}</td>
+									<td>{{item.courseName}}</td>
+									<td>{{item.attribute}}</td>
+									<td>{{item.credit}}</td>
+									<td>{{item.classWeeks}}</td>
+									<td>{{item.classTime}}</td>
+									<td>{{item.location}}</td>
+									<td>{{item.teaName}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

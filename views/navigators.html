@@ -1,0 +1,57 @@
+<style type="text/css">
+	#startDateLabel{
+		display: inline;
+		position: absolute;
+	    right: 16%;
+	    top: 21px;
+	    font-size: 21px;
+	    color: #fff;
+	}
+	#startDate{
+		width: 15%;
+	}
+	#navigation-btn{
+		float: right;
+		margin-top: 21px;
+		margin-right: 19px;
+		display: none;
+	}
+</style>
+<!--主页头部-->
+<div class="testing">
+	<header class="main">
+		<h1 style="margin: 0px;"><strong>物电学院</strong> <span style="font-size: 20px;">实验选课</span></h1>
+		<form >
+			<label id="startDateLabel">开学日期：</label>
+            <input type="date" id="startDate" title="只能在每年开学前后设定开学时间">    
+		</form>
+	</header>
+	<section class="user">
+		<div>
+			<img src="img/person.jpg" alt="" height="40" width="40" /> <sapn id="welcome" style="color: #fff;">欢迎&nbsp;&nbsp;{{username}}&nbsp;&nbsp;来访</sapn>
+		</div>
+		<span class="btn btn-default" id="navigation-btn"><a>导航</a></span>
+		<span class="btn btn-default" id="sign-out" ng-click="logout()"><a>登出</a></span>
+	</section>
+</div>
+<!--导航菜单-->
+<nav id="navigation">
+	<ul style="font-size: 18px;">
+		<li ui-sref-active="section"><a ui-sref = "navigators.home" ><span class="icon"></span> 首页</a></li>
+		<li ui-sref-active="section"><a ui-sref = "navigators.roleManager" ng-show="isManager"><span class="icon"></span> 角色管理</a></li>
+		<li ui-sref-active="section"><a ui-sref = "navigators.subjectManage" ng-show="{{isManager || isTeacher}}"><span class="icon"></span> 课程管理 </a></li>
+		<li ui-sref-active="section"><a ui-sref = "navigators.selectSubject" ng-show="{{isStudent || isManager}}"><span class="icon"></span> 开始选课</a></li>
+		<li ui-sref-active="section"><a ui-sref = "navigators.readClassSheet"><span class="icon"></span> 查看课表</a></li>
+		<li ui-sref-active="section"><a ui-sref = "navigators.markScore" ng-show="{{isManager || isTeacher}}"><span class="icon"></span> 随堂打分</a></li>
+		<li ui-sref-active="section"><a ui-sref = "navigators.readScore"><span class="icon"></span> 查看成绩</a></li>
+		<li ui-sref-active="section"><a ui-sref = "navigators.scoreManage" ng-show="{{isManager || isTeacher}}"><span class="icon"></span> 成绩管理 </a></li>
+		<li ui-sref-active="section"><a ui-sref = "navigators.personInfo"><span class="icon"></span> 个人信息</a></li>
+		<li ui-sref-active="section"><a ui-sref = "navigators.resetPassword"><span class="icon"></span> 修改密码</a></li>
+	</ul>
+</nav>
+<!--功能主视图-->
+<div id="mainview">
+	<div class="mainbox" style="position: relative;">
+		<div ui-view></div>
+	</div>
+</div>

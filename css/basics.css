@@ -1,0 +1,45 @@
+.head_search{
+    margin: 10px 0
+}
+.head_search .col{
+    float:right;
+}
+.head_search .col>button{
+    height:30px;
+    margin-left: 5px;
+    border-radius: 4px;
+    border:1px solid #aaa;
+}
+.head_search .col>input{
+    height:30px;
+    border-radius: 4px;
+    border:1px solid #aaa;
+}
+
+/*table*/
+.table-striped>tbody .status{
+    padding:3px 5px;
+    color:#fff;
+    border-radius: 4px;
+}
+
+.table-striped>tbody .bg-effective{
+    background: limegreen;
+}
+
+.table-striped>tbody .bg-warning{
+    background: orange;
+}
+
+.table-striped>tbody .bg-danger{
+    background: red;
+}
+
+.table-striped>tbody .invaild{
+    padding:3px 5px;
+    background: #d9d9d9;
+    color:#fff;
+    border-radius: 4px;
+}
+
+
