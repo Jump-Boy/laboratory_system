@@ -299,6 +299,7 @@ public class TeaServiceImpl implements TeaService {
 	@Override
 	public List<Map<String, Object>> readUseForEveryMark(Teacher tea,
 			String week, byte currentWeeks) throws TeaException {
+		String weeks = "第" + currentWeeks + "周";
 		String teaName = "";
 		List<Map<String, Object>> list = null;
 		try {
@@ -312,13 +313,13 @@ public class TeaServiceImpl implements TeaService {
 					Map<String, Object> map = list.get(i);
 					System.out.println(map.get("stuId") + "" + map.get("courseId"));
 				}
-				
+
 				// 先验证平时成绩表中是否有该记录，有则从list中移除（在参数化的时候，则无需加进去），即无需再初始化该条记录，否则无，则初始化。
 				for (int i = 0; i < list.size(); i++) {
 					Map<String, Object> map = list.get(i);
 					Map<String, Object> usualMap = scoreDao
 							.findHavenUsualScore((Long) map.get("stuId"),
-									(Integer) map.get("courseId"));
+									(Integer) map.get("courseId"),weeks);
 					if (usualMap != null)
 						list.remove(i--);//remove后原本第二个元素变成了第一个，但下一次循环却从第二个开始，所以要i--
 				}
@@ -327,7 +328,7 @@ public class TeaServiceImpl implements TeaService {
 					Map<String, Object> map = list.get(i);
 					System.out.println(map.get("stuId") + "" + map.get("courseId"));
 				}
-				
+
 				Object[][] params = new Object[list.size()][];
 				// for (int i = 0; i < params.length; i++) {
 				// params[i][0] = new Object();

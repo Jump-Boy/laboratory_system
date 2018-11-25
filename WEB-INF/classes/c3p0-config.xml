@@ -2,9 +2,9 @@
 	<default-config>
 		
 		<property name="driverClass">com.mysql.jdbc.Driver</property>
-		<property name="jdbcUrl">jdbc:mysql://rm-2zenmxc56bmx3lg6i.mysql.rds.aliyuncs.com:3306/mydb1</property>
+		<property name="jdbcUrl">127.0.0.1:3306/laboratory_system</property>
 		<property name="user">root</property>
-		<property name="password">HuMingHao123</property>
+		<property name="password">root</property>
 		
 		<property name="automaticTestTable">con_test</property>
 		<property name="checkoutTimeout">30000</property>

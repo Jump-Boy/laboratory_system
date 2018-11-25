@@ -16,7 +16,7 @@
 
 * 项目还是挂在阿里云上，项目链接给各位观爷奉上（PS：因为项目的首页静态资源比较大，而贫穷又限制了我，云主机的带宽只有1M，
 所以观爷们首次访问首页会比较慢，请耐心等待。。后续会考虑优化，进行静态文件压缩，或者依赖的一些静态包使用 CDN 加速）<br/>
-[点击访问项目网站]() <br/>
+[点击访问项目网站](http://www.yauwdxk.xyz:8080/laboratory_system) <br/>
 账号：*123456*  密码：*123456*  请选择 *学生* 进行登录
 
 * 项目部署<br/>
@@ -49,13 +49,20 @@ MD5Util 来完成用户密码的加密，设计 ThreadLocal 工具类通过同�
 3、简易算法的设计：通过实现简单算法，来完成系统的自动化计算功能，如年级、当前上课周次的计算等；<br/>
 4、数据库的设计与开发：分析数据结构来完成相应表的设计，同时设计触发器来完成相应功能的实现，如关联数据的清除；<br/>
 5、我和前端大佬在接口的协作上是通过 RAP2 来制定接口文档。<br/>
+![RAP2接口文档展示](https://github.com/Jump-Boy/laboratory_system/blob/master/illustration/RAP2接口文档展示.png)
+
+## 项目展示
+![开学时间展示](https://github.com/Jump-Boy/laboratory_system/blob/master/illustration/开学时间展示.png) <br/>
+![角色管理展示](https://github.com/Jump-Boy/laboratory_system/blob/master/illustration/角色管理展示.png) <br/>
+![添加课程展示](https://github.com/Jump-Boy/laboratory_system/blob/master/illustration/添加课程展示.png) <br/>
+![课程管理展示](https://github.com/Jump-Boy/laboratory_system/blob/master/illustration/课程管理展示.png) <br/>
 
 ## 项目详述
 ### 总体架构设计
 本文所研究的系统在设计开发上采用了前后端分离的设计模式，前端部分主要以 HTML 和 AngularJS 为核心进行开发，而后端部分主要以 
 Java 进行功能开发和 MySQl 做数据库管理。前后端数据交互则采用 Http 协议+ JSON，前后端在开发的同时通过共同维护的接口文档作为参
 照规范，接口文档中定义了后端接口和前后端JSON数据格式。系统的总体架构图如下图所示：<br/>
- ![总体架构图]()
+ ![总体架构图](https://github.com/Jump-Boy/laboratory_system/blob/master/illustration/系统总体架构图.png)
  
 * 后端架构设计<br/>
 该课题研究的是系统后端设计，设计语言主要采用 Java 为主，使用 JDK 1.6，API 遵循 Java EE 规范，项目部署在阿里云上，服务器
@@ -63,7 +70,7 @@ Java 进行功能开发和 MySQl 做数据库管理。前后端数据交互则�
 为了保证功能逻辑清晰，代码的质量和可重用性，使用了 MVC（Model View Controller）的设计架构模式，M：Model 模型，JavaBean 
 实体类。V：JSON 数据和 View 视图渲染。C：Controller 控制器，这里指 Servlet 和接口 url。在代码组织结构上使用了分层思想，即
 表现层（Web层）、业务层和数据访问层。这样分层可以达到强内聚和弱耦合，架构如下图所示：<br/>
- ![后端架构设计图]()
+ ![后端架构设计图](https://github.com/Jump-Boy/laboratory_system/blob/master/illustration/后端架构设计图.png)
  
 * 模块设计<br/>
 在进行系统的功能设计时，需要清楚系统的每个功能内容，需要进行模块化分析，将功能分成多个互相独立的模块。在设计过程中，避免
@@ -131,7 +138,7 @@ Java 进行功能开发和 MySQl 做数据库管理。前后端数据交互则�
 技术特点：通过阿里云短信平台实现短信发送功能，使用定时任务调度框架Quartz实现定时查询和定时发送功能，在发送功能设计中采用
 并发调用短信接口实现同时发送的功能。<br/>
 下图为整个实验课选课及实验室管理系统的模块设计图：<br/>
- ![系统模块设计图]()
+ ![系统模块设计图](https://github.com/Jump-Boy/laboratory_system/blob/master/illustration/系统模块设计图.png)
  
 ### 数据库设计及实现
 * 细化表结构及数据库实施<br/>
@@ -155,7 +162,7 @@ Java 进行功能开发和 MySQl 做数据库管理。前后端数据交互则�
 ，只要MySQL服务启动且满足执行要求，就会执行事件。<br/> 
 * 数据库表结构关系<br/>
 通过实际分析，创建了多表关联，多表独立的结构模式。下图为创建所有表后的关系图：<br/>
-![表结构关系图]()
+![表结构关系图](https://github.com/Jump-Boy/laboratory_system/blob/master/illustration/表结构关系图.png)
 图中可以看出大部分数据表之间存在关联，这种关联关系包括一对一，一对多或是多对一。对于一对一的关联，如用户信息表与用户图片
 表之间通过 id 实现主外键的一对一关系。对于一对多或者多对一的关系，如学生表与学生图片表、学生选课表、学生成绩表之间通过学
 生的学号 id 实现关联。通过关联所要达到的目的就是在满足数据库范式的基础上，使得整个数据系统更加稳健与牢固，并且保证表中每
@@ -265,7 +272,7 @@ http头来使得浏览器以下载的方式打开文件。该 http 头字段，�
 信息和平时成绩记录 id，将结果集封装 JSON 写入响应中，返回给前端。（在筛选出课程时，需要初始化平时成绩表，保证表中有每个
 学生的记录）注意若角色类型为 manager，则直接返回 failure。<br/>
 下图为计算周次和星期的简易算法逻辑：
- ![周次和星期计算的简易算法逻辑]()
+ ![周次和星期计算的简易算法逻辑](https://github.com/Jump-Boy/laboratory_system/blob/master/illustration/周次和星期计算的简易算法逻辑.png)
  随堂打分：<br/>
 前端页面通过 POST 请求，将分数和平时成绩记录 id 发送到服务器，servlet 获取到后，通过判断平时分来初始化请假和旷课参数
 （-1代表旷课，0代表请假，正数代表已签到），然后调用接口，执行 insert 语句，将请假、旷课和平时分插入到数据库平时成绩表中。
@@ -279,7 +286,7 @@ http头来使得浏览器以下载的方式打开文件。该 http 头字段，�
 最后调用接口，将个人信息和图片信息 update 进数据库中（在更新学生提交的个人信息时，还需要根据班级计算出他的当前年级学期），
 根据返回值判断操作是否成功，返回判断标志给前端。<br/>
 下图为当前学期计算的简易算法逻辑：<br/> 
-![学生当前学期计算的简易算法逻辑]() 
+![学生当前学期计算的简易算法逻辑](https://github.com/Jump-Boy/laboratory_system/blob/master/illustration/学生当前学期计算的简易算法逻辑.png) 
 注意在个人信息中，用户图片的存储是数据库中存储大量二进制数据，前端将用户上传的图片通过 BASE64 解码，解析成字符串，然后将
 字符串传给服务器，数据库中以二进制文本存储，所以 servlet 需要将接收到的字符串转成字节数组，然后构造传参一个 SerialBlob 对象，
 最终将该对象插入数据库，当然 JDBC 驱动会将该对象转成字节数组在存入数据库。当需要取出图片信息时，通过JDBC的方法取出二进制数据，
@@ -296,9 +303,9 @@ http头来使得浏览器以下载的方式打开文件。该 http 头字段，�
 的 SDK 依赖包，参照阿里的 API ，调用短信接口，完成发送功能。当然短信发送为系统自行发送，当判断出有学生在一小时后有课程，
 则进行短息提醒。所以采用定时任务框架 Quartz ，设置定时任务，每10分钟进行数据库查询，若有符合条件的学生，则列出学生的电话
 及课程相关信息，然后进行短信发送。下图为阿里云短信服务的基本使用流程：<br/>
- ![阿里云短信服务使用流程图]()
+ ![阿里云短信服务使用流程图](https://github.com/Jump-Boy/laboratory_system/blob/master/illustration/阿里云短信服务流程.png)
 下图为短信测试控制台打印出的信息<br/>
-![短信输出]()
+![短信输出](https://github.com/Jump-Boy/laboratory_system/blob/master/illustration/短信测试.png)
 
 ### 配置文件设计
 * 数据源配置<br/>
@@ -309,6 +316,7 @@ http头来使得浏览器以下载的方式打开文件。该 http 头字段，�
 第三种方式配置数据源，下表为 c3p0-config.xml 文件的主要配置参数（其中 jdbcUrl 中“…”处为数据库服务器 IP 地址，user 中
 “…”为数据库用户名，password中“…”为数据库密码）：<br/>
   数据源配置参数表<br/>
+  
 |参数节点名|参数节点值|
 |:---|:---|
 |driverClass|com.mysql.jdbc.Driver|
@@ -325,6 +333,7 @@ http头来使得浏览器以下载的方式打开文件。该 http 头字段，�
 为了提供给前端接口，需要将后端代码中各 servlet 类进行映射，需要在 web.xml 中配置映射路径。当然在 web.xml 中还需要配置其他
 功能所需配置的信息，如禁止 js 脚本修改 cookie 。下表为在 web.xml 的中配置过滤器主要参数：<br/>
 过滤器配置参数表<br/>
+
 |参数节点名|参数节点值|
 |:---|:---|
 |filter-name|encodingFilter|
@@ -332,12 +341,14 @@ http头来使得浏览器以下载的方式打开文件。该 http 头字段，�
 |url-pattern|/*|
 下表为在 web.xml 中配置 session 和 cookie 的主要参数，包含设置 session 的有效时间以及设置禁止应用程序通过 js 操作 cookie：<br/>
 session和cookie配置参数表<br/>
+
 |参数节点名|参数节点值|
 |session-timeout|180|
 |http-only|true|
 下表为为所有接口配置映射 url（其中 name 中“…”为 servlet 名称，用于资源与接口匹配，class 中“…”为 servlet 的资源路径，
 pattern 中“…”为具体接口 url。所有接口配置结构类似，仅文本结点不同）：<br/>
 接口映射配置参数表<br/>
+
 |参数节点名|参数节点值|
 |:---|:---|
 |servlet-name|…|
@@ -352,6 +363,7 @@ pattern 中“…”为具体接口 url。所有接口配置结构类似，仅�
 为了通过 Nginx 实现 Tomcat 集群，需要在 Nginx 中配置 nginx.conf 文件。下表为主要配置参数（其中 server 中的“…”为项目资
 源服务器 IP:端口号，集群的服务器个数与 server 个数等同）：<br/>
 集群配置参数表<br/>
+
 |参数节点名|参数节点值|
 |:---|:---|
 |server|…|

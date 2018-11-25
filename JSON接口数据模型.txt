@@ -1,0 +1,553 @@
+(function() {
+  let repositoryId = 9473
+  let interfaces = [{
+      id: 52725,
+      name: '示例接口',
+      method: 'GET',
+      url: '/example/1522908842457',
+      request: {
+        "foo": "@ctitle"
+      },
+      response: {
+        "string|1-10": "★",
+        "number|1-100": 1,
+        "boolean|1-2": true,
+        "regexp": {},
+        "array|1-10": [{
+          "foo|+1": 1,
+          "bar|1-10": "★"
+        }],
+        "items": [1, true, "hello", {}],
+        "object": {
+          "foo|+1": 1,
+          "bar|1-10": "★"
+        },
+        "placeholder": "@title"
+      }
+    },
+    {
+      id: 52780,
+      name: '"登录"按钮接口',
+      method: 'POST',
+      url: '/loginAction.do',
+      request: {
+        "username": {},
+        "password": {},
+        "userType": "student"
+      },
+      response: {
+        "state": "success",
+        "personInfo": {
+          "id": 1070214024000,
+          "name": "HMH",
+          "userType": "student"
+        }
+      }
+    },
+    {
+      id: 52789,
+      name: '"个人信息"按钮接口（管理员）',
+      method: 'GET',
+      url: '/loadPsInfoAction.do',
+      request: {},
+      response: {
+        "name": "ZX",
+        "province": "陕西省",
+        "sex": "男",
+        "telephone": "",
+        "picURL": ""
+      }
+    },
+    {
+      id: 52791,
+      name: '"个人信息"按钮接口（教师）',
+      method: 'GET',
+      url: '/loadPsInfoAction.do',
+      request: {},
+      response: {
+        "name": "YYN",
+        "province": "陕西省",
+        "sex": "男",
+        "telephone": "",
+        "picURL": ""
+      }
+    },
+    {
+      id: 52793,
+      name: '"个人信息"按钮接口（学生）',
+      method: 'GET',
+      url: '/loadPsInfoAction.do',
+      request: {},
+      response: {
+        "className": "电信14-2",
+        "educationLevel": "本科",
+        "major": "电子信息工程",
+        "name": "HMH",
+        "province": "陕西省",
+        "sex": "男",
+        "telephone": "17009210000",
+        "studentID": 1070214024006,
+        "picURL": "http://localhost:8080/laboratory_system/index.html"
+      }
+    },
+    {
+      id: 52796,
+      name: '"修改"按钮接口',
+      method: 'POST',
+      url: '/modifyPsInfoAction.do',
+      request: {
+        "className": "",
+        "educationLevel": "",
+        "major": "",
+        "name": "ZX",
+        "picURL": "http://localhost:8080/laboratory_system/index.html",
+        "province": "陕西省",
+        "sex": "男",
+        "studentID": "",
+        "tele": {}
+      },
+      response: {
+        "modifyResult": "success"
+      }
+    },
+    {
+      id: 52800,
+      name: '"修改"按钮接口',
+      method: 'POST',
+      url: '/modifyPwdAction',
+      request: {
+        "newPassword": 123456,
+        "password": 1070214024000
+      },
+      response: {
+        "modifyResult": true
+      }
+    },
+    {
+      id: 52836,
+      name: '"角色管理"按钮接口',
+      method: 'GET',
+      url: '/loadAllRolesAction.do',
+      request: {},
+      response: {
+        "roles": [{
+          "id": 1070214024000,
+          "name": "HMH",
+          "userType": "学生",
+          "createdAt": "2018-04-02 00：20：16",
+          "updatedAt": "2018-04-02 00：36：16"
+        }]
+      }
+    },
+    {
+      id: 52850,
+      name: '"添加角色"接口',
+      method: 'POST',
+      url: '/addRoleAction',
+      request: {
+        "id": "1070214024000",
+        "name": "HMH",
+        "userType": "学生"
+      },
+      response: {
+        "addResult": "success"
+      }
+    },
+    {
+      id: 52851,
+      name: '"删除"按钮接口',
+      method: 'POST',
+      url: '/deleteRoleAction',
+      request: {
+        "id": "1070214024000"
+      },
+      response: {
+        "deleteResult": "success"
+      }
+    },
+    {
+      id: 52855,
+      name: '"课程管理"按钮接口',
+      method: 'GET',
+      url: '/loadAllCoursesAction.do',
+      request: {},
+      response: {
+        "courses|2": [{
+          "courseName": "数电实验",
+          "attribute": "专业必修",
+          "credit": 4,
+          "studySemester": "大二第一学期",
+          "classWeeks": "1~18周",
+          "classTime": "星期一 08：00~12：00",
+          "location": 5406,
+          "teaName": "LB",
+          "limitNum": 30,
+          "selectedNum": 20,
+          "courseId": 1
+        }]
+      }
+    },
+    {
+      id: 52861,
+      name: '"添加课程"按钮接口',
+      method: 'POST',
+      url: '/addCourseAction.do',
+      request: {
+        "courseName": "数电实验",
+        "majorScope": "电子信息工程，通信工程",
+        "attribute": "专业必修",
+        "credit": "4",
+        "studySemester": "大二第一学期",
+        "classWeeks": "1~18周",
+        "classTime": "星期一 08：00~12：00",
+        "location": "5406",
+        "teaName": "李四",
+        "limitNum": "30"
+      },
+      response: {
+        "addResult": "success"
+      }
+    },
+    {
+      id: 52862,
+      name: '"修改"按钮接口',
+      method: 'POST',
+      url: '/modifyCourseAction.do',
+      request: {
+        "courseName": "数电实验",
+        "majorScope": "电子信息工程,通信工程",
+        "attribute": "专业必修",
+        "credit": "4",
+        "studySemester": "大二第一学期",
+        "classWeeks": "1~18周",
+        "classTime": "星期一 08：00~12：00",
+        "location": "5406",
+        "name": "LB",
+        "limitNum": "30",
+        "courseId": "1"
+      },
+      response: {
+        "modifyResult": "success"
+      }
+    },
+    {
+      id: 52906,
+      name: '"删除"按钮接口',
+      method: 'POST',
+      url: '/deleteCourseAction.do',
+      request: {
+        "courseId": "1"
+      },
+      response: {
+        "deleteResult": "success"
+      }
+    },
+    {
+      id: 52908,
+      name: '"开始选课"按钮接口',
+      method: 'GET',
+      url: '/startCourseAction.do',
+      request: {},
+      response: {
+        "courses|2": [{
+          "courseId": 1,
+          "courseName": "数电实验",
+          "majorScope": "电子信息工程，通信工程",
+          "attribute": "专业必修",
+          "credit": 4,
+          "studySemester": "大二上学期",
+          "classWeeks": "1~18周",
+          "classTime": "星期一 08：00~12：00",
+          "location": 5406,
+          "teaName": "LB",
+          "limitNum": 30,
+          "selectedNum": 20,
+          "selectFlag": "true"
+        }]
+      }
+    },
+    {
+      id: 52909,
+      name: '"选修"按钮接口',
+      method: 'POST',
+      url: '/selectCourseAction.do',
+      request: {
+        "courseId": "1"
+      },
+      response: {
+        "selectResult": "success"
+      }
+    },
+    {
+      id: 52913,
+      name: '"查看课表"按钮接口',
+      method: 'GET',
+      url: '/loadClassScheduleAction.do',
+      request: {},
+      response: {
+        "classSchedule|2": [{
+          "courseName": "数电实验",
+          "attribute": "专业必修",
+          "credit": 4,
+          "classWeeks": "1~18周",
+          "classTime": "星期一 08：00~12：00",
+          "location": 5406,
+          "teaName": "LB"
+        }]
+      }
+    },
+    {
+      id: 52915,
+      name: '"随堂打分"按钮接口',
+      method: 'GET',
+      url: '/loadUseForEveryMarkAction.do',
+      request: {},
+      response: {
+        "everyMarkTable|2": [{
+          "usualGradeId": 1,
+          "stuName": "HMH",
+          "stuId": 1070214024006,
+          "courseName": "数电实验",
+          "classTime": "星期一 08：00~12:00",
+          "location": 5406,
+          "currentWeeks": "第一周",
+          "teaName": "LB"
+        }]
+      }
+    },
+    {
+      id: 52919,
+      name: '"打分"按钮接口',
+      method: 'POST',
+      url: '/markEveryClassAction.do',
+      request: {
+        "usualScore": "96"
+      },
+      response: {
+        "markResult": "success"
+      }
+    },
+    {
+      id: 52979,
+      name: '"成绩管理"按钮接口',
+      method: 'GET',
+      url: '/loadUseForTotalMarkAction.do',
+      request: {},
+      response: {
+        "totalTable|2": [{
+          "totalScoreId": 1,
+          "grade": "大一",
+          "sutName": "HMH",
+          "stuId": 1070214024006,
+          "className": "电信14-2",
+          "courseName": "数电实验",
+          "referScore": 96,
+          "vacateNum": 3,
+          "truancyNum": 2,
+          "totalScore": 0,
+          "teaName": "LB"
+        }]
+      }
+    },
+    {
+      id: 52994,
+      name: '"打分"按钮接口',
+      method: 'POST',
+      url: '/markTotalAction.do',
+      request: {
+        "totalScore": "98",
+        "totalScoreId": "1"
+      },
+      response: {
+        "markResult": "success"
+      }
+    },
+    {
+      id: 53106,
+      name: '"查看成绩"按钮接口',
+      method: 'GET',
+      url: '/loadScoreTableAction.do',
+      request: {},
+      response: {
+        "scoreTable|2": [{
+          "totalScoreId": 1,
+          "courseName": "数电实验",
+          "attribute": "专业必修",
+          "totalScore": 98,
+          "pass": true,
+          "getCredit": 4,
+          "GPA": 2.3,
+          "rebuild": true
+        }]
+      }
+    },
+    {
+      id: 53140,
+      name: '"查看明细"按钮接口',
+      method: 'POST',
+      url: '/loadScoreDetailAction.do',
+      request: {
+        "totalScoreId": "1"
+      },
+      response: {
+        "scoreDetail|2": [{
+          "courseName": "数电实验",
+          "classTime": "星期一 8：00~12：00",
+          "location": 5406,
+          "currentWeeks": "第三周",
+          "teaName": "LB",
+          "usualScore": 95
+        }]
+      }
+    },
+    {
+      id: 53607,
+      name: '"查询"按钮接口',
+      method: 'POST',
+      url: '/LoadGroupScoreTableAction.do',
+      request: {
+        "studySemester": "大一上"
+      },
+      response: {
+        "scoreTable|2": [{
+          "courseNo": 1,
+          "courseName": "数电实验",
+          "attribute": "专业必修",
+          "totalScore": 98,
+          "pass": "true",
+          "getCredit": 4,
+          "GPA": 2.3,
+          "rebuild": "true"
+        }]
+      }
+    },
+    {
+      id: 53618,
+      name: '"大一"，"大二"，"大三"，"大四"按钮接口',
+      method: 'POST',
+      url: '/loadGroupUseForTotalAction.do',
+      request: {
+        "groupGrade": "大一"
+      },
+      response: {
+        "totalTable|2": [{
+          "totalScoreId": 1,
+          "grade": "大一",
+          "sutName": "HMH",
+          "stuId": 1070214024000,
+          "className": "电信14-2",
+          "courseName": "数电实验",
+          "referScore": 96,
+          "vacateNum": 3,
+          "truancyNum": 2,
+          "totalScore": 0,
+          "teaName": "LB"
+        }]
+      }
+    },
+    {
+      id: 54898,
+      name: '"已选人数"按钮接口',
+      method: 'POST',
+      url: '/loadSelectedStuAction.do',
+      request: {
+        "courseId": "1"
+      },
+      response: {
+        "selectedStuTable|2": [{
+          "stuName": "HMH",
+          "stuId": 1070214024000,
+          "courseName": "数电实验",
+          "classTime": "星期一 08:00~12:00",
+          "location": 5406,
+          "teaName": "LB"
+        }]
+      }
+    },
+    {
+      id: 54964,
+      name: '已选人数详情中"删除"按钮接口',
+      method: 'POST',
+      url: '/deleteSelectedStuAction.do',
+      request: {
+        "courseId": "1",
+        "stuId": "1070214024006"
+      },
+      response: {
+        "deleteResult": "success"
+      }
+    },
+    {
+      id: 60432,
+      name: '"+"按钮接口',
+      method: 'POST',
+      url: '/addRolesAction.do',
+      request: {},
+      response: {}
+    },
+    {
+      id: 76582,
+      name: '"首页"（加载公告）',
+      method: 'GET',
+      url: '/loadAnnouncementsAction.do',
+      request: {},
+      response: {
+        "announcements|2": [{
+          "announcementId": 1,
+          "title": "系统使用指南",
+          "isHaveAttachment": true,
+          "name": "张三",
+          "createdAt": "2018-05-08"
+        }]
+      }
+    },
+    {
+      id: 76585,
+      name: '“添加公告”按钮',
+      method: 'POST',
+      url: '/addAnnouncementAction.do',
+      request: {
+        "title": "系统使用指南",
+        "abstract": "注意首次登录系统。。",
+        "attachment": {
+          "attachmentName": "使用守则",
+          "attachmentURL": "hiihjbbbdhjkbkjk"
+        }
+      },
+      response: {
+        "addResult": "success"
+      }
+    },
+    {
+      id: 76588,
+      name: '公告详情',
+      method: 'GET',
+      url: '/loadAnnounDetailAction.do',
+      request: {
+        "announcementId": "1",
+        "name": "张三"
+      },
+      response: {
+        "announcementId": 1,
+        "title": "使用指南",
+        "abstract": "首次登录系统。。。。",
+        "isHaveAttachment": true,
+        "name": "张三",
+        "createdAt": "2018-05-08"
+      }
+    },
+    {
+      id: 76594,
+      name: '附件下载（包括“附件下载”按钮和首页中的下载箭头）',
+      method: 'GET',
+      url: '/attachmentDownloadAction.do',
+      request: {
+        "announcementId": "1"
+      },
+      response: {
+        "attachmentName": "使用守则",
+        "attachmentURL": "huiuihfhdkhkjdk"
+      }
+    }
+  ]
+})();

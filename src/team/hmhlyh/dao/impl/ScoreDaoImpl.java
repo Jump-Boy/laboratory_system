@@ -41,9 +41,9 @@ public class ScoreDaoImpl implements ScoreDao {
 
 	@Override
 	public Map<String, Object> findHavenUsualScore(long stuId,
-			int courseId) throws SQLException {
+			int courseId, String weeks) throws SQLException {
 		QueryRunner qr = new QueryRunner();
-		Map<String, Object> map = qr.query(ManagerThreadLoacl.getConnection(), "SELECT * FROM stuusualscore WHERE stuId=? AND courseId=? AND currentWeeks=?", new MapHandler(), stuId, courseId);
+		Map<String, Object> map = qr.query(ManagerThreadLoacl.getConnection(), "SELECT * FROM stuusualscore WHERE stuId=? AND courseId=? AND currentWeeks=?", new MapHandler(), stuId, courseId, weeks);
 		return map;
 	}
 

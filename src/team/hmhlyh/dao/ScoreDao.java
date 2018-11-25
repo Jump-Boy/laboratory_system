@@ -17,7 +17,7 @@ public interface ScoreDao {
 	public int[] iniUsualScore(Object[][] params) throws SQLException;
 	
 	//验证stuusualscore中是否已有某条记录
-	public Map<String, Object> findHavenUsualScore(long stuId, int courseId) throws SQLException;
+	public Map<String, Object> findHavenUsualScore(long stuId, int courseId, String currentWeeks) throws SQLException;
 	
 	//点击随堂打分显示内容
 	public List<Map<String, Object>> readForMarkEvery(long teaId, String week, byte currentWeeks) throws SQLException; 
