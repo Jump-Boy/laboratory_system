@@ -20,7 +20,8 @@
 账号：*123456*  密码：*123456*  请选择 *学生* 进行登录
 
 * 项目部署<br/>
-将项目包clone到本地后，请修改scripts目录下的services.js文件中的配置：修改位置如下：<br/>
+将项目war包clone到本地后，直接放入tomcat的webapp目录下，然后startup tomcat，最后通过localhost:8080/laboratory_system即可
+访问，要想直接不加项目名访问，可配置虚拟映射，参考下文，另外，注意根据自己的情况，请修改scripts目录下的services.js文件中的配置：修改位置如下：<br/>
 ```$xslt
 app.factory('netConnector', ['$http',function($http) {
 			var server = "http://127.0.0.1:8090";
@@ -52,6 +53,7 @@ MD5Util 来完成用户密码的加密，设计 ThreadLocal 工具类通过同�
 ![RAP2接口文档展示](https://github.com/Jump-Boy/laboratory_system/blob/master/illustration/RAP2接口文档展示.png)
 
 ## 项目展示
+![超管权限界面](https://github.com/Jump-Boy/laboratory_system/blob/master/illustration/超管权限界面.png) <br/>
 ![开学时间展示](https://github.com/Jump-Boy/laboratory_system/blob/master/illustration/开学时间展示.png) <br/>
 ![角色管理展示](https://github.com/Jump-Boy/laboratory_system/blob/master/illustration/角色管理展示.png) <br/>
 ![添加课程展示](https://github.com/Jump-Boy/laboratory_system/blob/master/illustration/添加课程展示.png) <br/>
