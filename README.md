@@ -1,7 +1,7 @@
 # laboratory_system
 我和一位全栈大佬的本科毕业设计-学院的实验课选课及实验室管理系统<br/>
-**前端作者(其实全栈大佬)**: <br/>
-**后端作者(本人)**:jump-boy(hi_jumpboy@163.com)
+**前端作者(其实全栈大佬)**:codingSSnail(1076841285@qq.com) <br/>
+**后端作者**:jump-boy(hi_jumpboy@163.com)
 
 ## 项目简介
 该项目设计是物电学院实验室选课系统的Web前后端设计，实现同学根据个人时间安排自主选课的功能，同时教师可以根据选课情况，进行
@@ -342,13 +342,15 @@ http头来使得浏览器以下载的方式打开文件。该 http 头字段，�
 |:---|:---|
 |filter-name|encodingFilter|
 |filter-class|team.hmhlyh.web.filter.EncodingFilter|
-|url-pattern|/*|
+|url-pattern|/* |
+<br/>
 下表为在 web.xml 中配置 session 和 cookie 的主要参数，包含设置 session 的有效时间以及设置禁止应用程序通过 js 操作 cookie：<br/>
 session和cookie配置参数表<br/>
 
 |参数节点名|参数节点值|
 |session-timeout|180|
 |http-only|true|
+<br/>
 下表为为所有接口配置映射 url（其中 name 中“…”为 servlet 名称，用于资源与接口匹配，class 中“…”为 servlet 的资源路径，
 pattern 中“…”为具体接口 url。所有接口配置结构类似，仅文本结点不同）：<br/>
 接口映射配置参数表<br/>
@@ -358,6 +360,7 @@ pattern 中“…”为具体接口 url。所有接口配置结构类似，仅�
 |servlet-name|…|
 |servlet-class|…|
 |url-pattern|…|
+<br/>
 在设置项目首页时，将节点名为“welcome-file”的节点值设置成“index.html”。<br/> 
 * 虚拟目录配置<br/>
 如果集成编译工具如IDEA,直接在Application中配置 / ,可以跳过此步骤，如果手动部署到 WEBAPP 下为了实现当通过 IP+端口号直接访
