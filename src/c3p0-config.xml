@@ -2,9 +2,9 @@
 	<default-config>
 		
 		<property name="driverClass">com.mysql.jdbc.Driver</property>
-		<property name="jdbcUrl">jdbc:mysql://localhost:3306/laboratory_system</property>
+		<property name="jdbcUrl">jdbc:mysql://localhost:3306/laboratory_system?serverTimezone=Asia/Shanghai</property>
 		<property name="user">root</property>
-		<property name="password">root</property>
+		<property name="password">123456</property>
 		
 		<property name="automaticTestTable">con_test</property>
 		<property name="checkoutTimeout">30000</property>
@@ -14,7 +14,6 @@
 		<property name="maxPoolSize">100</property>
 		<property name="minPoolSize">10</property>
 		<property name="maxStatements">200</property>
-		
 		<user-overrides user="test-user">
 			<property name="maxPoolSize">10</property>
 			<property name="minPoolSize">1</property>

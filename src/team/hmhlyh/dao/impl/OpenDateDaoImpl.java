@@ -14,7 +14,7 @@ public class OpenDateDaoImpl implements OpenDateDao {
 	@Override
 	public int setOpenDate(Date date) throws SQLException {
 		QueryRunner qr = new QueryRunner();
-		int num = qr.update(ManagerThreadLoacl.getConnection(), "INSERT INTO openDate VALUES(?,NOW(),1)", date);
+		int num = qr.update(ManagerThreadLoacl.getConnection(), "INSERT INTO opendate VALUES(?,NOW(),1)", date);
 		return num;
 	}
 
@@ -28,7 +28,7 @@ public class OpenDateDaoImpl implements OpenDateDao {
 	@Override
 	public Date readOpenDate() throws SQLException {
 		QueryRunner qr = new QueryRunner();
-		Object obj = qr.query(ManagerThreadLoacl.getConnection(),"SELECT * FROM openDate WHERE id=1", new ScalarHandler());
+		Object obj = qr.query(ManagerThreadLoacl.getConnection(),"SELECT * FROM opendate WHERE id=1", new ScalarHandler());
 		Date date = null;
 		if (obj != null) {
 			date = (Date)obj;

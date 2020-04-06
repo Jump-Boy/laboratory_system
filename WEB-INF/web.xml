@@ -8,7 +8,7 @@
 	<listener>
 		<listener-class>team.hmhlyh.web.listener.MyServletContextListener</listener-class>
 	</listener>
-	
+
 	<!-- 配置过滤器 -->
 	<filter>
 		<filter-name>encodingFilter</filter-name>
@@ -27,7 +27,23 @@
 			<http-only>true</http-only>
 		</cookie-config>
 	</session-config>
-	
+
+	<!-- 解决tomcat9.x中静态资源乱码问题 -->
+	<servlet>
+		<servlet-name>default</servlet-name>
+		<servlet-class>org.apache.catalina.servlets.DefaultServlet</servlet-class>
+
+		<init-param>
+			<param-name>fileEncoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</servlet>
+	<!-- The mapping for the default servlet -->
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
 	<!-- 登录 -->
 	<servlet>
 		<servlet-name>loginServlet</servlet-name>

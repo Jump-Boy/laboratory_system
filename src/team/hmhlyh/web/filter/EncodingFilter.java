@@ -18,9 +18,11 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class EncodingFilter implements Filter {
 
+	@Override
 	public void destroy() {
 	}
 
+	@Override
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
 		// 处理请求乱码
@@ -28,7 +30,16 @@ public class EncodingFilter implements Filter {
 		HttpServletRequest myRequest = new MyRequest(httpServletRequest);
 		// 处理响应乱码
 		HttpServletResponse resp = (HttpServletResponse)response;
-		resp.setContentType("text/html;charset=utf-8");
+		String path = myRequest.getServletPath();
+		// 解决火狐浏览器  请求MIME 类型 "text/html" 不是 "text/css"的错误
+		if (path.contains(".css")) {
+			resp.setHeader("Content-type", "text/css");
+		} else if (path.contains(".js")) {
+			resp.setHeader("Content-type", "application/x-javascript");
+		} else {
+			resp.setHeader("Content-type", "text/html;charset=utf-8");
+		}
+//		resp.setHeader("X-Content-Type-Options", "nosniff");
 		// 处理跨域问题
 		resp.setHeader("Access-Control-Allow-Origin", myRequest.getHeader("Origin"));
 		resp.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -38,6 +49,7 @@ public class EncodingFilter implements Filter {
 		chain.doFilter(myRequest, resp);
 	}
 
+	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
 	}
 
